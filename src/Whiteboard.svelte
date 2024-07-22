@@ -28,13 +28,14 @@
     width: 100%;
     background-color: black;
     color: white;
-    padding: 10px;
+    padding: 15px 10px; /* Increase padding for height */
     text-align: center;
     font-size: 24px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    line-height: 1.5; /* Increase line-height */
   }
 
   .header-content {
@@ -61,7 +62,7 @@
     align-items: center;
     width: 100%;
     padding: 20px;
-    margin-top: 60px; /* Add top margin to avoid overlap with fixed header */
+    margin-top: 90px; /* Adjust top margin to avoid overlap with fixed header */
   }
 
   .text {
@@ -73,7 +74,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    line-height: 1.5;
+    line-height: 1.7;
+    margin-left: -50px;
   }
 
   .image-container {
@@ -116,6 +118,7 @@
         <Link to="/">HOME</Link>
         <Link to="/ppt">PPT</Link>
         <Link to="/video">영상</Link>
+        <Link to="/mypage">mypage</Link>
       </div>
     </div>
   </div>
@@ -129,7 +132,7 @@
       </div>
     </div>
     <div class="image-container">
-      <img class="image" src="image.jpg" alt="Presenter" />
+      <img class="image" src="nubduck.png" alt="nubduck" />
     </div>
   </div>
 </div>
