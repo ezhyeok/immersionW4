@@ -1,17 +1,18 @@
 <script>
   import { Link } from 'svelte-routing';
 
-  // Define form variables to bind inputs
   let presentationTopic = '';
   let relatedContent = '';
   let pptCount = '';
   let presentationTime = '';
+  let showTemplates = false;
 
   function handleSubmit() {
-    presentationTopic = 'hello';
-    relatedContent = 'hello';
-    pptCount = 'hello';
-    presentationTime = 'hello';
+    showTemplates = true;
+  }
+
+  function handleTemplateSelection(template) {
+    console.log(`Selected template: ${template}`);
   }
 </script>
 
@@ -62,19 +63,21 @@
 
   .content {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     padding: 20px;
     margin-top: 90px; /* Adjust top margin to avoid overlap with fixed header */
   }
 
-  .form-container {
+  .form-container, .template-container {
     background-color: #fff4cc;
     padding: 20px;
     border-radius: 10px;
-    width: 50%; /* Adjust width as needed */
-    margin-right: 20px; /* Add margin as needed */
+    width: 80%;
+    max-width: 1000px; /* Adjust as needed */
+    text-align: center;
+    margin-bottom: 20px;
   }
 
   .form-container label {
@@ -95,15 +98,25 @@
   }
 
   .image-container {
-    width: 40%; /* Adjust width as needed */
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 20px; /* Increase gap for better spacing */
   }
 
-  .image {
-    width: auto;
-    height: 500px; /* Adjust height as needed */
+  .image-container img {
+    width: 45%;
+    max-width: 200px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .image-container img:hover {
+    transform: scale(1.05);
+    border-color: #ff6347; /* Change color as needed */
   }
 
   .submit-button {
@@ -116,6 +129,11 @@
     cursor: pointer;
     margin: 20px auto 0; /* Center the button horizontally */
     display: block; /* Make the button a block-level element */
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
 </style>
 
@@ -131,29 +149,40 @@
       </div>
     </div>
   </div>
-  <div class="content">
-    <div class="form-container">
-      <h2 class="form-title">발표에 대해 알려주세요!</h2>
-      <div class="form-row">
-        <label for="topic">발표의 주제?</label>
-        <input type="text" id="topic" bind:value={presentationTopic} placeholder="발표 주제를 입력하세요">
+  {#if showTemplates}
+    <div class="content">
+      <div class="title">PPT 템플릿을 골라주세요!</div>
+      <div class="template-container">
+        <div class="image-container">
+          <img src="ppt1.png" alt="Template 1" on:click={() => handleTemplateSelection('template1')}/>
+          <img src="ppt2.png" alt="Template 2" on:click={() => handleTemplateSelection('template2')}/>
+          <img src="ppt3.png" alt="Template 3" on:click={() => handleTemplateSelection('template3')}/>
+          <img src="ppt4.png" alt="Template 4" on:click={() => handleTemplateSelection('template4')}/>
+        </div>
       </div>
-      <div class="form-row">
-        <label for="content">관련 내용?</label>
-        <input type="text" id="content" bind:value={relatedContent} placeholder="관련 내용을 입력하세요">
-      </div>
-      <div class="form-row">
-        <label for="pptCount">PPT 장수?</label>
-        <input type="text" id="pptCount" bind:value={pptCount} placeholder="PPT 장수를 입력하세요">
-      </div>
-      <div class="form-row">
-        <label for="time">발표 시간?</label>
-        <input type="text" id="time" bind:value={presentationTime} placeholder="발표 시간을 입력하세요">
-      </div>
-      <button class="submit-button" on:click={handleSubmit}>제출</button>
     </div>
-    <div class="image-container">
-      <img class="image" src="a.png" alt="Presenter" />
+  {:else}
+    <div class="content">
+      <div class="form-container">
+        <h2 class="form-title">발표에 대해 알려주세요!</h2>
+        <div class="form-row">
+          <label for="topic">발표의 주제?</label>
+          <input type="text" id="topic" bind:value={presentationTopic} placeholder="발표 주제를 입력하세요">
+        </div>
+        <div class="form-row">
+          <label for="content">관련 내용?</label>
+          <input type="text" id="content" bind:value={relatedContent} placeholder="관련 내용을 입력하세요">
+        </div>
+        <div class="form-row">
+          <label for="pptCount">PPT 장수?</label>
+          <input type="text" id="pptCount" bind:value={pptCount} placeholder="PPT 장수를 입력하세요">
+        </div>
+        <div class="form-row">
+          <label for="time">발표 시간?</label>
+          <input type="text" id="time" bind:value={presentationTime} placeholder="발표 시간을 입력하세요">
+        </div>
+        <button class="submit-button" on:click={handleSubmit}>제출</button>
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
